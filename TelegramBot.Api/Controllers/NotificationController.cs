@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TelegramBot.Application;
+using TelegramBot.Application.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,36 +14,26 @@ namespace TelegramBot.Api.Controllers
     [ApiController]
     public class NotificationController : ControllerBase
     {
-        // GET: api/<NotificationController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<NotificationController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        private string token = "1774859986:AAEEmCaDmrbR7uWe5Sf8m8WAYos_ef-JtLU";
 
         // POST api/<NotificationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("{id}/PostNote")]
+        public async Task<ActionResult> Post([FromBody] Notification data, string chatId)
         {
+            var testData = new Notification() { Bank = "Тинькофф", Id = 1, CardNumber = "123456", DateRequest = DateTime.Now, Sum = 100};
+            
+            
+            try
+            {
+                var note = new GetRequest(token, testData, chatId);
+                return Ok("Сообщение отправлено");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        // PUT api/<NotificationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<NotificationController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

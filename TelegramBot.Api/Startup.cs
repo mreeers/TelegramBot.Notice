@@ -53,7 +53,7 @@ namespace TelegramBot.Api
                 endpoints.MapControllers();
             });
 
-            Bot.GetBotClientAsync().Wait();
+            
         }
     }
 }
