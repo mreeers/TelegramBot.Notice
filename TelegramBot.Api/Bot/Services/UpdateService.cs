@@ -6,8 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.Api.Bot.Services.Interface;
-using TelegramBot.Application.Models;
+using TelegramBot.Api.Models;
 
 namespace TelegramBot.Api.Bot.Services
 {
@@ -53,6 +54,33 @@ namespace TelegramBot.Api.Bot.Services
                     await _botService.Client.SendTextMessageAsync(message.Chat.Id, "Thx for the Pics");
                     break;
             }
+        }
+
+        public async Task<Notification> SendNotification(Notification notification)
+        {
+            try
+            {
+                var buttons = new InlineKeyboardMarkup(new[]
+                {
+                    InlineKeyboardButton.WithCallbackData("✅ Подтвердить"),
+                    InlineKeyboardButton.WithCallbackData("❌ Отказать"),
+                });
+
+                _logger.LogInformation($"Отпавлена заявка на вывод. Id {notification.Id}");
+                
+                await _botService.Client.SendTextMessageAsync(
+                    chatId: notification.IdChat,
+                    text: $"📆 Дата заявки: {notification.DateRequest}\n🏦 Банк: {notification.Bank}\n💳 Номер карты: {notification.CardNumber}\n💵 Сумма: {notification.Sum}",
+                    replyMarkup: buttons);
+
+                notification.Status = 0;
+                return notification;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

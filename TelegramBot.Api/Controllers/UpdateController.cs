@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using TelegramBot.Api.Bot.Services.Interface;
-using TelegramBot.Application;
-using TelegramBot.Application.Models;
+using TelegramBot.Api.Models;
 
 namespace TelegramBot.Api.Controllers
 {
@@ -22,9 +21,11 @@ namespace TelegramBot.Api.Controllers
             _updateService = updateService;
         }
 
-        [HttpGet]
-        public IActionResult GetTest()
+        [HttpPost("/send")]
+        public async Task<IActionResult> Send()
         {
+            var testData = new Notification() { Bank = "Тинькофф", Id = 1, CardNumber = "5569852147812632510", DateRequest = DateTime.Now, Sum = 200, IdChat = "368563281" };
+            await _updateService.SendNotification(testData);
             return Ok("Тест");
         }
 

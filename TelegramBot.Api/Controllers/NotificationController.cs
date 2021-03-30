@@ -17,7 +17,7 @@ namespace TelegramBot.Api.Controllers
         private TelegramSettings telegramBot = new TelegramSettings() {Token = "1774859986:AAEEmCaDmrbR7uWe5Sf8m8WAYos_ef-JtLU", ChatId = new List<string> {"368563281" } };
 
         // POST api/<NotificationController>
-        [HttpPost("{id}/PostNote")]
+        [HttpPost("/PostNote")]
         public async Task<ActionResult> Post([FromBody] Notification request)
         {
             var testData = new Notification() { Bank = "Тинькофф", Id = 1, CardNumber = "123456", DateRequest = DateTime.Now, Sum = 100};
