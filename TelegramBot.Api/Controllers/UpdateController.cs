@@ -15,17 +15,19 @@ namespace TelegramBot.Api.Controllers
     public class UpdateController : ControllerBase
     {
         private readonly IUpdateService _updateService;
+        private readonly ISendService _sendService;
 
-        public UpdateController(IUpdateService updateService)
+        public UpdateController(IUpdateService updateService, ISendService sendService)
         {
             _updateService = updateService;
+            _sendService = sendService;
         }
 
         [HttpPost("/send")]
         public async Task<IActionResult> Send()
         {
-            var testData = new Notification() { Bank = "Тинькофф", Id = 1, CardNumber = "5569852147812632510", DateRequest = DateTime.Now, Sum = 200, IdChat = "368563281" };
-            await _updateService.SendNotification(testData);
+            var testData = new Notification() { Bank = "Тинькофф", Id = 1, CardNumber = "5569852147812632510", DateRequest = DateTime.Now, Sum = 200, IdChats = new List<string> { "368563281" } };
+            await _sendService.Send(testData);
             return Ok("Тест");
         }
 

@@ -8,6 +8,6 @@ namespace TelegramBot.Api.Bot.Services.Interface
 {
     public interface IBotService
     {
-        TelegramBotClient Client { get; }
+        ITelegramBotClient Client { get; }
     }
 }

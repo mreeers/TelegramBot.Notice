@@ -20,6 +20,6 @@ namespace TelegramBot.Api.Bot.Services
                     new HttpToSocks5Proxy(_config.Socks5Host, _config.Socks5Port));
         }
 
-        public TelegramBotClient Client { get; }
+        public ITelegramBotClient Client { get; set; }
     }
 }

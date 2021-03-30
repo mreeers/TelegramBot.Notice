@@ -32,6 +32,7 @@ namespace TelegramBot.Api
 
             
             services.AddScoped<IUpdateService, UpdateService>();
+            services.AddScoped<ISendService, SendService>();
             services.AddSingleton<IBotService, BotService>();
 
             services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));

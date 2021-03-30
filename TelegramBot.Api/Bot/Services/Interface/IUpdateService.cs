@@ -10,6 +10,6 @@ namespace TelegramBot.Api.Bot.Services.Interface
     public interface IUpdateService
     {
         Task EchoAsync(Update update);
-        Task<Notification> SendNotification(Notification notification); 
+        Task SendNotification(Notification notification); 
     }
 }

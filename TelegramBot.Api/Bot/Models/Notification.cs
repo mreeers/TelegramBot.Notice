@@ -21,8 +21,8 @@ namespace TelegramBot.Api.Models
         public int Status { get; set; }
         
         /// <summary>
-        /// Id чата оператора/ов??
+        /// Список id чата операторов
         /// </summary>
-        public string IdChat { get; set; }
+        public List<string> IdChats { get; set; }
     }
 }

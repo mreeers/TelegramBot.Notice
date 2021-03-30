@@ -30,7 +30,7 @@ namespace TelegramBot.Api.Bot.Services
                 return;
 
             var message = update.Message;
-
+            
             _logger.LogInformation("Received Message from {0}", message.Chat.Id);
 
             switch (message.Type)
@@ -56,7 +56,7 @@ namespace TelegramBot.Api.Bot.Services
             }
         }
 
-        public async Task<Notification> SendNotification(Notification notification)
+        public async Task SendNotification(Notification notification)
         {
             try
             {
@@ -68,13 +68,15 @@ namespace TelegramBot.Api.Bot.Services
 
                 _logger.LogInformation($"Отпавлена заявка на вывод. Id {notification.Id}");
                 
-                await _botService.Client.SendTextMessageAsync(
-                    chatId: notification.IdChat,
+                foreach(var chatId in notification.IdChats)
+                {
+                    await _botService.Client.SendTextMessageAsync(
+                    chatId: chatId,
                     text: $"📆 Дата заявки: {notification.DateRequest}\n🏦 Банк: {notification.Bank}\n💳 Номер карты: {notification.CardNumber}\n💵 Сумма: {notification.Sum}",
                     replyMarkup: buttons);
+                }
 
                 notification.Status = 0;
-                return notification;
             }
             catch(Exception ex)
             {
