@@ -12,5 +12,6 @@ namespace TelegramBot.Application.Models
         public DateTime DateRequest { get ; set ; }
         public decimal Sum { get; set; }
         public string Bank { get; set; }
+        public bool Status { get; set; }
     }
 }
