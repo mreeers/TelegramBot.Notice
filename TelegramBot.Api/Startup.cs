@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TelegramBot.Api.Bot;
+using TelegramBot.Api.Bot.Services;
+using TelegramBot.Api.Bot.Services.Interface;
 using TelegramBot.Application;
 
 namespace TelegramBot.Api
@@ -27,7 +30,14 @@ namespace TelegramBot.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            
+            services.AddScoped<IUpdateService, UpdateService>();
+            services.AddSingleton<IBotService, BotService>();
+
+            services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
+
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TelegramBot.Api", Version = "v1" });

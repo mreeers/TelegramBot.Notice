@@ -11,6 +11,7 @@ namespace TelegramBot.Application
     public class GetRequest
     {
         private static ITelegramBotClient _botClient;
+
         public GetRequest(TelegramSettings settings, Notification notification)
         {
             _botClient = new TelegramBotClient(settings.Token) { Timeout = TimeSpan.FromSeconds(5)};
@@ -21,19 +22,24 @@ namespace TelegramBot.Application
                 Bot_SendMessage(chatId, notification);
             }
 
+
+
             _botClient.OnCallbackQuery += async (object sc, CallbackQueryEventArgs ev) =>
             {
                 var message = ev.CallbackQuery.Message;
-                if (ev.CallbackQuery.Data == "myCommand1")
+                while (true)
                 {
-                    // сюда то что тебе нужно сделать при нажатии на первую кнопку 
-                    Console.WriteLine("Ура");
-                }
-                else
+                    if (ev.CallbackQuery.Data == "myCommand1")
+                    {
+                        // сюда то что тебе нужно сделать при нажатии на первую кнопку 
+                        Console.WriteLine("Ура");
+                    }
+                    else
                 if (ev.CallbackQuery.Data == "myCommand2")
-                {
-                    Console.WriteLine("Ура 2");
-                    // сюда то что нужно сделать при нажатии на вторую кнопку
+                    {
+                        Console.WriteLine("Ура 2");
+                        // сюда то что нужно сделать при нажатии на вторую кнопку
+                    }
                 }
             };
 

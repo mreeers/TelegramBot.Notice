@@ -24,7 +24,9 @@ namespace TelegramBot.Api.Controllers
             
             try
             {
-                var note = new GetRequest(telegramBot, testData);
+                //var note = new GetRequest(telegramBot, testData);
+                var test = new BotHelper(telegramBot);
+                test.SendMessage(testData);
                 return Ok("Сообщение отправлено");
             }
             catch(Exception ex)
